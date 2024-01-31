@@ -5,6 +5,7 @@ Este é um guia completo para utilizar a API de Pagamentos MercadoPago. Siga as 
 
 ### Instalação
 
+
 Certifique-se de ter o Python e o pip instalados em seu sistema. Execute o seguinte comando para instalar as dependências necessárias:
 
 ```bash

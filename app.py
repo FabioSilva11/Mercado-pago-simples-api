@@ -14,6 +14,26 @@ def homepage():
     descricao = request.args.get('descricao')
     destinatario = request.args.get('destinatario')
 
+# Verificar se os parâmetros obrigatórios estão presentes
+    if not valor_da_transacao or not descricao or not destinatario:
+        return jsonify({'erro': 'Parâmetros obrigatórios ausentes'})
+
+    # Verificar se o valor da transação é numérico e maior que zero
+    try:
+        valor_da_transacao = float(valor_da_transacao)
+        if valor_da_transacao <= 0:
+            raise ValueError
+    except ValueError:
+        return jsonify({'erro': 'O valor da transação deve ser numérico e maior que zero'})
+
+    # Verificar se a descrição não está vazia
+    if not descricao:
+        return jsonify({'erro': 'A descrição não pode estar vazia'})
+
+    # Verificar se o destinatário é um e-mail válido
+    if '@' not in destinatario or '.' not in destinatario:
+        return jsonify({'erro': 'O destinatário deve ser um endereço de e-mail válido'})
+
     # Verificar se o valor da transação é numérico
     try:
         valor_da_transacao = float(valor_da_transacao)
@@ -96,4 +116,4 @@ def payment():
 # Rodar a nossa API
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
-
+    

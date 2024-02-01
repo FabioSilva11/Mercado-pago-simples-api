@@ -1,10 +1,8 @@
-# Mercado-pago-simples-api
-Essa app foi criada com o intuito de facilitar a vida de quem está aprendendo a programar agora especialmente para as pessoas que codificam pelo celular em muitos softwares é necessário colocar o as credenciais diretamente no aplicativo o que pode ser perigoso então essa pi resolve esse problema para você
+## Mercado-pago-simples-api
 
-Este é um guia completo para utilizar a API de Pagamentos MercadoPago. Siga as instruções abaixo para integração bem-sucedida.
+Esta aplicação foi criada com o objetivo de facilitar a vida de quem está aprendendo a programar, especialmente para aquelas pessoas que codificam pelo celular em muitos softwares. Muitas vezes, é necessário inserir as credenciais diretamente no aplicativo, o que pode ser perigoso. Portanto, esta API resolve esse problema para você.
 
-### Instalação
-
+## Instalação
 
 Certifique-se de ter o Python e o pip instalados em seu sistema. Execute o seguinte comando para instalar as dependências necessárias:
 
@@ -12,15 +10,15 @@ Certifique-se de ter o Python e o pip instalados em seu sistema. Execute o segui
 pip install flask requests
 ```
 
-### Configuração
+## Configuração
 
 1. Abra o arquivo `app.py` em seu editor de texto preferido.
 
-2. Substitua o valor da variável `access_token` pelo seu Token de Acesso do MercadoPago. Você pode obter isso no [painel de desenvolvedor do MercadoPago](https://www.mercadopago.com/developers/pt-br/my-account/).
+2. Substitua o valor da variável `access_token` pelo seu Token de Acesso do MercadoPago. Você pode obtê-lo no [painel de desenvolvedor do MercadoPago](https://www.mercadopago.com/developers/pt-br/my-account/).
 
-### Utilização
+## Utilização
 
-#### Rota Padrão
+### Rota Padrão
 
 Para criar um pagamento, acesse a rota padrão:
 
@@ -47,7 +45,7 @@ Exemplo de resposta bem-sucedida:
   "mensagem": "Pagamento criado com sucesso",
   "id_mercado_pago": "123456789",
   "qr_code_base64": "base64_encoded_qr_code",
-  "qr_code_text": "qr_code_text"
+  "qr_code_text": "codigo_copia_e_cola"
 }
 ```
 
@@ -60,12 +58,12 @@ Exemplo de resposta de falha:
 }
 ```
 
-#### Rota de Status de Pagamento
+### Rota de Status de Pagamento
 
-Para verificar o status de um pagamento, acesse a rota de status use o conteúdo da chave id_mercado_pago gerada ao criar um pagamento:
+Para verificar o status de um pagamento, acesse a rota de status usando o conteúdo da chave `id_mercado_pago` gerada ao criar um pagamento:
 
 ```bash
-GET /status?codigo= id_mercado_pago
+GET /status?codigo=id_mercado_pago
 ```
 
 - `codigo`: Código do pagamento.
@@ -94,4 +92,33 @@ Exemplo de resposta de erro:
 }
 ```
 
-Certifique-se de adaptar as rotas conforme necessário para a integração bem-sucedida em seu aplicativo.
+### Verificações Adicionais
+
+Além das verificações básicas, o código inclui algumas verificações adicionais para garantir a integridade e segurança das transações:
+
+1. **Valor da Transação:**
+   - Verifica se o valor da transação é numérico e maior que zero.
+
+2. **Descrição:**
+   - Garante que a descrição não esteja vazia.
+
+3. **Destinatário (E-mail):**
+   - Verifica se o destinatário é um endereço de e-mail válido.
+
+4. **Outras Verificações:**
+   - Inclui verificações adicionais para assegurar o correto processamento das transações.
+
+Estas verificações são implementadas para fornecer uma experiência segura e eficaz ao utilizar a API.
+
+## Executando a API
+
+Certifique-se de executar a aplicação utilizando o comando:
+
+```bash
+python app.py
+```
+
+A API estará disponível em http://localhost:5000/.
+``` 
+
+Este README foi atualizado com as informações adicionais sobre as verificações implementadas no código para garantir um funcionamento seguro e eficiente da API.

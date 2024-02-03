@@ -128,8 +128,8 @@ Certifique-se de executar a aplicação utilizando o comando:
 ```bash
 python app.py
 ```
-
+```bash
 A API estará disponível em http://localhost:5000/.
 ``` 
 
-##Este README foi atualizado com as informações adicionais sobre as verificações implementadas no código para garantir um funcionamento seguro e eficiente da API.
+Este README foi atualizado com as informações adicionais sobre as verificações implementadas no código para garantir um funcionamento seguro e eficiente da API.

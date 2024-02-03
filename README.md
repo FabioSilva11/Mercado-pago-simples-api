@@ -129,7 +129,11 @@ Certifique-se de executar a aplicação utilizando o comando:
 python app.py
 ```
 ```bash
-A API estará disponível em http://localhost:5000/.
+
+Caso a Api seja testada em local rost ela estará disponível em 
+
+```bash
+ http://localhost:5000/.
 ``` 
 
 Este README foi atualizado com as informações adicionais sobre as verificações implementadas no código para garantir um funcionamento seguro e eficiente da API.

@@ -73,6 +73,10 @@ Exemplo:
 ```bash
 GET /status?codigo=123456789
 ```
+Exemplo em host
+
+http://127.0.0.1:5000/status?codigo=123456789
+
 
 A resposta incluirá o status atual do pagamento.
 

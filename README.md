@@ -36,6 +36,12 @@ Exemplo:
 GET /?valor=100&descricao=Compra%20Online&destinatario=destinatario@email.com
 ```
 
+Exemplo em host
+
+```bash
+http://127.0.0.1:5000/?valor=500&descricao=faculdade&destinatario=destinatario@gmail.com
+```
+
 A resposta incluirá um QR Code e informações relevantes sobre a transação.
 
 Exemplo de resposta bem-sucedida:
@@ -75,8 +81,9 @@ GET /status?codigo=123456789
 ```
 Exemplo em host
 
+```bash
 http://127.0.0.1:5000/status?codigo=123456789
-
+```
 
 A resposta incluirá o status atual do pagamento.
 

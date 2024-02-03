@@ -128,7 +128,6 @@ Certifique-se de executar a aplicação utilizando o comando:
 ```bash
 python app.py
 ```
-```bash
 
 Caso a Api seja testada em local rost ela estará disponível em 
 

@@ -2,6 +2,11 @@
 
 Esta aplicação foi criada com o objetivo de facilitar a vida de quem está aprendendo a programar, especialmente para aquelas pessoas que codificam pelo celular em muitos softwares. Muitas vezes, é necessário inserir as credenciais diretamente no aplicativo, o que pode ser perigoso. Portanto, esta API resolve esse problema para você.
 
+Adicionei um vídeo explicativo sobre o projeto. Veja abaixo:
+
+[![mercado pago simples api](https://youtu.be/_Xgu2lGkBBc)
+
+
 ## Instalação
 
 Certifique-se de ter o Python e o pip instalados em seu sistema. Execute o seguinte comando para instalar as dependências necessárias:

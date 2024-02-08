@@ -4,7 +4,7 @@ Esta aplicação foi criada com o objetivo de facilitar a vida de quem está apr
 
 Adicionei um vídeo explicativo sobre o projeto. Veja abaixo:
 
-[![mercado pago simples api](https://youtu.be/_Xgu2lGkBBc)
+https://youtu.be/_Xgu2lGkBBc
 
 
 ## Instalação

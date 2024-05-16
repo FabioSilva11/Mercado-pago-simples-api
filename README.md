@@ -1,11 +1,6 @@
-## Mercado-pago-simples-api
+# Mercado-pago-simples-api
 
-Esta aplicação foi criada com o objetivo de facilitar a vida de quem está aprendendo a programar, especialmente para aquelas pessoas que codificam pelo celular em muitos softwares. Muitas vezes, é necessário inserir as credenciais diretamente no aplicativo, o que pode ser perigoso. Portanto, esta API resolve esse problema para você.
-
-Adicionei um vídeo explicativo sobre o projeto. Veja abaixo:
-
-https://youtu.be/_Xgu2lGkBBc
-
+Esta aplicação foi criada para simplificar o processo de realização de pagamentos utilizando o Mercado Pago, especialmente para aqueles que estão aprendendo a programar ou que precisam codificar em dispositivos móveis. Ela elimina a necessidade de inserir credenciais diretamente no aplicativo, o que pode ser arriscado. Assista ao vídeo explicativo do projeto [aqui](https://youtu.be/_Xgu2lGkBBc).
 
 ## Instalação
 
@@ -15,11 +10,17 @@ Certifique-se de ter o Python e o pip instalados em seu sistema. Execute o segui
 pip install flask requests
 ```
 
+é 
+
+```bash
+pip install mercado pago
+```
+
 ## Configuração
 
 1. Abra o arquivo `app.py` em seu editor de texto preferido.
 
-2. Substitua o valor da variável `access_token` pelo seu Token de Acesso do MercadoPago. Você pode obtê-lo no [painel de desenvolvedor do MercadoPago](https://www.mercadopago.com/developers/pt-br/my-account/).
+2. Substitua o valor da variável `access_token` pelo seu Token de Acesso do Mercado Pago. Você pode obtê-lo no [painel de desenvolvedor do Mercado Pago](https://www.mercadopago.com/developers/pt-br/my-account/).
 
 ## Utilização
 
@@ -39,12 +40,6 @@ Exemplo:
 
 ```bash
 GET /?valor=100&descricao=Compra%20Online&destinatario=destinatario@email.com
-```
-
-Exemplo em local host
-
-```bash
-http://127.0.0.1:5000/?valor=500&descricao=faculdade&destinatario=destinatario@gmail.com
 ```
 
 A resposta incluirá um QR Code e informações relevantes sobre a transação.
@@ -83,11 +78,6 @@ Exemplo:
 
 ```bash
 GET /status?codigo=123456789
-```
-Exemplo em local host
-
-```bash
-http://127.0.0.1:5000/status?codigo=123456789
 ```
 
 A resposta incluirá o status atual do pagamento.
@@ -134,10 +124,6 @@ Certifique-se de executar a aplicação utilizando o comando:
 python app.py
 ```
 
-Caso a Api seja testada em local rost ela estará disponível em 
+A API estará disponível em `http://localhost:5000/` para testes locais.
 
-```bash
- http://localhost:5000/.
-``` 
-
-Este README foi atualizado com as informações adicionais sobre as verificações implementadas no código para garantir um funcionamento seguro e eficiente da API.
+Este README foi atualizado com informações sobre as verificações adicionais implementadas no código para garantir um funcionamento seguro e eficiente da API.

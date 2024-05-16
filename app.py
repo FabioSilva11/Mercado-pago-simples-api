@@ -1,47 +1,26 @@
 from flask import Flask, request, jsonify
-import requests
+import mercadopago
 
 app = Flask(__name__)
 
 # Token de acesso do Mercado Pago
-access_token = "SUA-API-KEY-DO-MERCADO-PAGO"
+TOKEN_MERCADOPAGO = "SEU-ID-DO-MERCADO-PAGO"  # Substitua pelo seu token do Mercado Pago
 
-# Rota padrão
+sdk = mercadopago.SDK(TOKEN_MERCADOPAGO)
+
+# Função para obter o status de um pagamento no Mercado Pago
+def get_payment_status(payment_id):
+    result = sdk.payment().get(payment_id)
+    data = result["response"]["status"]
+    return data
+
+# Rota para criar um pagamento
 @app.route('/')
 def homepage():
     # Obter parâmetros da URL
     valor_da_transacao = request.args.get('valor')
     descricao = request.args.get('descricao')
     destinatario = request.args.get('destinatario')
-
-# Verificar se os parâmetros obrigatórios estão presentes
-    if not valor_da_transacao or not descricao or not destinatario:
-        return jsonify({'erro': 'Parâmetros obrigatórios ausentes'})
-
-    # Verificar se o valor da transação é numérico e maior que zero
-    try:
-        valor_da_transacao = float(valor_da_transacao)
-        if valor_da_transacao <= 0:
-            raise ValueError
-    except ValueError:
-        return jsonify({'erro': 'O valor da transação deve ser numérico e maior que zero'})
-
-    # Verificar se a descrição não está vazia
-    if not descricao:
-        return jsonify({'erro': 'A descrição não pode estar vazia'})
-
-    # Verificar se o destinatário é um e-mail válido
-    if '@' not in destinatario or '.' not in destinatario:
-        return jsonify({'erro': 'O destinatário deve ser um endereço de e-mail válido'})
-
-    # Verificar se o valor da transação é numérico
-    try:
-        valor_da_transacao = float(valor_da_transacao)
-    except ValueError:
-        return jsonify({'erro': 'O valor da transação deve ser numérico'})
-
-    # URL da API do MercadoPago
-    url = "https://api.mercadopago.com/v1/payments"
 
     # Prepara os dados JSON para a solicitação de pagamento
     data = {
@@ -54,37 +33,30 @@ def homepage():
         }
     }
 
-    # Configura os cabeçalhos da solicitação
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization": "Bearer " + access_token
-    }
+    # Cria o pagamento usando o SDK do Mercado Pago
+    result = sdk.payment().create(data)
 
-    # Faz a solicitação POST para a API do MercadoPago
-    response = requests.post(url, json=data, headers=headers)
+    # Processa a resposta do Mercado Pago
+    if result["status"] == 201:
+        id_mercado_pago = result["response"]["id"]
+        qr_code_base64 = result["response"]["point_of_interaction"]["transaction_data"]["qr_code_base64"]
+        qr_code_text = result["response"]["point_of_interaction"]["transaction_data"]["qr_code"]
 
-    # Processa a resposta da API do MercadoPago
-    if response.status_code == 201:
-        resposta_mercado_pago = response.json()
-        id = resposta_mercado_pago.get('id')
-        qr_code_base64 = resposta_mercado_pago.get('point_of_interaction', {}).get('transaction_data', {}).get('qr_code_base64')
-        qr_code_text = resposta_mercado_pago.get('point_of_interaction', {}).get('transaction_data', {}).get('qr_code')
-
-        # Adicione as informações processadas à resposta da sua API
+        # Constrói a resposta JSON
         resposta_json = {
             'mensagem': 'Pagamento criado com sucesso',
-            'id_mercado_pago': id,
+            'id_mercado_pago': id_mercado_pago,
             'qr_code_base64': qr_code_base64,
             'qr_code_text': qr_code_text
         }
 
         return jsonify(resposta_json)
     else:
-        return jsonify(response.json())
+        return jsonify(result)
 
-# Rota para status de pagamento
+# Rota para obter o status de um pagamento
 @app.route('/status')
-def payment():
+def payment_status():
     # Obter o parâmetro 'codigo' da URL
     codigo = request.args.get('codigo')
 
@@ -92,28 +64,19 @@ def payment():
     if not codigo:
         return jsonify({'erro': 'Campo obrigatório ausente'})
 
-    # URL da API do Mercado Pago para obter informações do pagamento
-    url = f"https://api.mercadopago.com/v1/payments/{codigo}"
+    # Obter o status do pagamento usando a função get_payment_status
+    status = get_payment_status(codigo)
 
-    # Configura os cabeçalhos da solicitação
-    headers = {
-        "Authorization": "Bearer " + access_token,
-        "Content-Type": "application/json"
-    }
+    if status:
+        # Construir a resposta com base no status do pagamento
+        status_pagamento = {
+            'status_pagamento': status
+        }
 
-    # Faz a solicitação GET para a API do Mercado Pago
-    response = requests.get(url, headers=headers)
-
-    # Verifica se a solicitação foi bem-sucedida
-    if response.status_code == 200:
-        # Processa a resposta da API do Mercado Pago
-        response_json = response.json()
-        status_pagamento = response_json.get('status')
-        return jsonify({'status_pagamento': status_pagamento})
+        return jsonify(status_pagamento)
     else:
         return jsonify({'erro': 'Erro ao obter informações do pagamento'})
 
-# Rodar a nossa API
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
-    
+if __name__ == "__main__":
+    app.run(debug=True)
+            
